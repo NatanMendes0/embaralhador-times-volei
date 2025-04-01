@@ -1,47 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embaralhador de Times</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h2>Embaralhador de Times de Vôlei</h2>
-    <textarea id="players" rows="6" cols="40" placeholder="Digite os nomes separados por vírgula"></textarea><br>
-    <button onclick="sortearTimes()">Sortear Times</button>
-    <h3>Time 1</h3>
-    <ul id="team1"></ul>
-    <h3>Time 2</h3>
-    <ul id="team2"></ul>
-    <script>
-        function sortearTimes() {
-            let input = document.getElementById("players").value;
-            let players = input.split(",").map(p => p.trim()).filter(p => p);
-            
-            if (players.length < 12) {
-                alert("É necessário pelo menos 12 jogadores para formar os times.");
-                return;
-            }
-            
-            // Embaralha os jogadores
-            players.sort(() => Math.random() - 0.5);
-            
-            let team1 = players.slice(0, 6);
-            let team2 = players.slice(6, 12);
-            let extras = players.slice(12);
-            
-            document.getElementById("team1").innerHTML = team1.map(p => `<li>${p}</li>`).join("");
-            document.getElementById("team2").innerHTML = team2.map(p => `<li>${p}</li>`).join("");
-            
-            if (extras.length > 0) {
-                alert("Jogadores extras foram distribuídos alternadamente!");
-                extras.forEach((player, index) => {
-                    if (index % 2 === 0) {
-                        document.getElementById("team1").innerHTML += `<li>(Extra) ${player}</li>`;
-                    } else {
-                        document.getElementById("team2").innerHTML += `<li>(Extra) ${player}</li>`;
-                    }
-                });
-            }
-        }
-    </script>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen p-4">
+
+    <div class="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
+        <h2 class="text-2xl font-bold mb-4 text-center">Embaralhador de Times de Vôlei</h2>
+        
+        <textarea id="players" class="w-full border rounded p-2 mb-4" rows="4" placeholder="Digite os nomes separados por vírgula"></textarea>
+        
+        <button onclick="sortearTimes()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+            Sortear Times
+        </button>
+        
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold">Time 1</h3>
+            <ul id="team1" class="list-disc ml-6 mt-2 text-gray-700"></ul>
+        </div>
+
+        <div class="mt-4">
+            <h3 class="text-xl font-semibold">Time 2</h3>
+            <ul id="team2" class="list-disc ml-6 mt-2 text-gray-700"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
